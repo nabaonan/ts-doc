@@ -1,0 +1,16 @@
+{
+  "name": "ts-doc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nabaonan/ts-doc.git",
+  "author": "nbn <nbn1209@126.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^0.20.1"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
+  }
+}

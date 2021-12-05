@@ -26,11 +26,21 @@ Each has a corresponding type in TypeScript.
 As you might expect, these are the same names you'd see if you used the JavaScript `typeof` operator on a value of those types:
 javasript 有三种非常常用的原语: 字符串、数字和布尔值。每个都有一个相应的打字稿类型。正如你所期望的，如果你在这些类型的值上使用 JavaScript typeof 操作符，你会看到相同的名字:
 
-- `string` represents string values like `"Hello, world"` `string` 表示字符串值，如 `"Hello, world"`
-- `number` is for numbers like `42`. JavaScript does not have a special runtime value for integers, so there's no equivalent to `int` or `float` - everything is simply `number` `number` 就是数字，比如 `42`. JavaScript 没有一个特殊的整数运行时, 所以没有判断相等 `int` or `float` - 一切都是简单的 `number`
-- `boolean` is for the two values `true` and `false` `boolean` 比较两个值 `true` and `false`
+- `string` represents string values like `"Hello, world"`
 
-> The type names `String`, `Number`, and `Boolean` (starting with capital letters) are legal, but refer to some special built-in types that will very rarely appear in your code. _Always_ use `string`, `number`, or `boolean` for types. 类型名字 String、 Number 和 Boolean (以大写字母开头)是合法的，但是引用一些特殊的内置类型，这些类型很少出现在代码中。对于类型，总是使用字符串、数字或布尔值。
+   `string` 表示字符串值，如 `"Hello, world"`
+
+- `number` is for numbers like `42`. JavaScript does not have a special runtime value for integers, so there's no equivalent to `int` or `float` - everything is simply `number` `number` 
+
+  就是数字，比如 `42`. JavaScript 没有一个特殊的整数运行时, 所以没有判断相等 `int` or `float` - 一切都是简单的 `number`
+
+- `boolean` is for the two values `true` and `false` 
+
+  `boolean` 比较两个值 `true` and `false`
+
+> The type names `String`, `Number`, and `Boolean` (starting with capital letters) are legal, but refer to some special built-in types that will very rarely appear in your code. _Always_ use `string`, `number`, or `boolean` for types. 
+>
+> 类型名字 String、 Number 和 Boolean (以大写字母开头)是合法的，但是引用一些特殊的内置类型，这些类型很少出现在代码中。对于类型，总是使用字符串、数字或布尔值。
 
 ## 数组 Arrays
 
@@ -100,17 +110,21 @@ For the most part you don't need to explicitly learn the rules of inference.
 If you're starting out, try using fewer type annotations than you think - you might be surprised how few you need for TypeScript to fully understand what's going on.
 在大多数情况下，您不需要明确地学习推理的规则。如果你刚开始使用，尝试使用比你想象的更少的类型注释——你可能会惊讶于你需要 TypeScript 来完全理解发生了什么。
 
-## Functions
+## Functions 函数
 
 Functions are the primary means of passing data around in JavaScript.
 TypeScript allows you to specify the types of both the input and output values of functions.
+
 函数是 JavaScript 中传递数据的主要方式。允许您指定函数的输入和输出值的类型。
 
-### Parameter Type Annotations
+### Parameter Type Annotations 参数类型注解
 
 When you declare a function, you can add type annotations after each parameter to declare what types of parameters the function accepts.
 Parameter type annotations go after the parameter name:
-在声明函数时，可以在每个参数后面添加类型注释，以声明函数接受哪些类型的参数。参数类型注释跟在参数名后面:
+
+在声明函数时，可以在每个参数后面添加类型注释，以声明函数接受哪些类型的参数。
+
+参数类型注解跟在参数名后面:
 
 ```ts twoslash
 // Parameter type annotation

@@ -72,7 +72,7 @@ const message = "Hello World!";
 
 As you can probably guess, if we try to run `message.toLowerCase()`, we'll get the same string only in lower-case.
 
-正如您可能猜到的那样，如果我们尝试运行  `message.toLowerCase()`,，我们只会得到相同的小写字符串。
+正如您可能猜到的那样，如果我们尝试运行  `message.toLowerCase()`,我们只会得到相同的小写字符串。
 
 What about that second line of code?
 If you're familiar with JavaScript, you'll know this fails with an exception:
@@ -250,16 +250,25 @@ if (value !== "a") {
 }
 ```
 
-## Types for Tooling
+## Types for Tooling     类型工具
 
 TypeScript can catch bugs when we make mistakes in our code.
 That's great, but TypeScript can _also_ prevent us from making those mistakes in the first place.
 
+当我们在代码中出错时，TypeScript可以捕捉 bug。这很不错，但是TypeScript也可以在第一时间阻止我们犯这些错误。
+
 The type-checker has information to check things like whether we're accessing the right properties on variables and other properties.
 Once it has that information, it can also start _suggesting_ which properties you might want to use.
 
+类型检查器有信息来检查我们是否正确访问变量和其他属性的属性。
+一旦它有了这些信息，它还可以开始建议您可能想要使用哪些属性。
+
 That means TypeScript can be leveraged for editing code too, and the core type-checker can provide error messages and code completion as you type in the editor.
 That's part of what people often refer to when they talk about tooling in TypeScript.
+
+这意味着也可以利用 TypeScript 编辑代码，并且当您在编辑器中键入时，核心类型检查器可以提供错误消息和代码补全。
+这是人们在讨论TypeScript的作用时经常提到的一部分。
+
 
 <!-- prettier-ignore -->
 ```ts twoslash
@@ -280,11 +289,17 @@ TypeScript takes tooling seriously, and that goes beyond completions and errors 
 An editor that supports TypeScript can deliver "quick fixes" to automatically fix errors, refactorings to easily re-organize code, and useful navigation features for jumping to definitions of a variable, or finding all references to a given variable.
 All of this is built on top of the type-checker and is fully cross-platform, so it's likely that [your favorite editor has TypeScript support available](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
 
-## `tsc`, the TypeScript compiler
+TypeScript非常重视工具，而且在输入时不仅仅是补全和错误提示。一个支持TypeScript的编辑器可以提供“快速修复”来自动修复错误，重构代码以方便地重新组织代码，以及有用的导航功能，通过一个变量跳转到目标文件，或查找给定变量的所有引用。
+所有这些都构建在类型检查器之上，并且是完全跨平台的， [您喜欢的编辑器已经支持TypeScript了](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
+## `tsc`, the TypeScript compiler    `tsc` TypeScript编译器
 
 We've been talking about type-checking, but we haven't yet used our type-_checker_.
 Let's get acquainted with our new friend `tsc`, the TypeScript compiler.
 First we'll need to grab it via npm.
+
+我们一直在讨论类型检查，但还没有使用我们的类型检查器。
+让我们来了解一下我们的新朋友 tsc，编译器。
+首先，我们需要通过 npm 获取它。
 
 ```sh
 npm install -g typescript
@@ -295,6 +310,8 @@ npm install -g typescript
 
 Now let's move to an empty folder and try writing our first TypeScript program: `hello.ts`:
 
+现在让我们移动到一个空文件夹，尝试编写我们的第一个TypeScript程序:`hello.ts`:
+
 ```ts twoslash
 // Greets the world.
 console.log("Hello world!");
@@ -303,21 +320,34 @@ console.log("Hello world!");
 Notice there are no frills here; this "hello world" program looks identical to what you'd write for a "hello world" program in JavaScript.
 And now let's type-check it by running the command `tsc` which was installed for us by the `typescript` package.
 
+注意，这里没有虚饰; 这个“ hello world”程序看起来与用 JavaScript 编写的“ hello world”程序一模一样。
+现在让我们通过运行安装过的`typescript` 包提供的命令`tsc` 来检查它。
+
 ```sh
 tsc hello.ts
 ```
 
 Tada!
+嗒嗒！
 
 Wait, "tada" _what_ exactly?
 We ran `tsc` and nothing happened!
 Well, there were no type errors, so we didn't get any output in our console since there was nothing to report.
+
+等等，“嗒嗒”到底是什么？
+我们运行了 tsc，什么都没发生！
+很好，没有类型错误，所以我们没有得到任何输出在我们的控制台，因为没有什么要报告。
+
 
 But check again - we got some _file_ output instead.
 If we look in our current directory, we'll see a `hello.js` file next to `hello.ts`.
 That's the output from our `hello.ts` file after `tsc` _compiles_ or _transforms_ it into a plain JavaScript file.
 And if we check the contents, we'll see what TypeScript spits out after it processes a `.ts` file:
 
+但再次检查-我们得到了一些替换过的输出文件。
+如果我们查看我们的当前目录，我们会看到一个  `hello.js`文件在`hello.ts` 旁边。
+这是 `hello.ts` 文件在 `tsc`  编译或转换他到一个纯 JavaScript 文件之后的输出。
+如果我们检查内容，我们会看到TypeScript在处理了`.ts`文件后生成的。
 ```js
 // Greets the world.
 console.log("Hello world!");
@@ -327,8 +357,15 @@ In this case, there was very little for TypeScript to transform, so it looks ide
 The compiler tries to emit clean readable code that looks like something a person would write.
 While that's not always so easy, TypeScript indents consistently, is mindful of when our code spans across different lines of code, and tries to keep comments around.
 
+在这种情况下，几乎没有什么需要TypeScript转换的地方，所以它看起来和我们写的一模一样。
+编译器试图生成清晰可读的代码，这些代码看起来像是人们编写的代码。
+虽然这并不总是那么容易，但是 TypeScript 始终如一地缩进，考虑到当我们的代码跨越不同代码行时，并尽量保证注释环绕在四周。
+
 What about if we _did_ introduce a type-checking error?
 Let's rewrite `hello.ts`:
+
+如果我们引入了一个类型检查错误呢?
+让我们重写`hello.ts`:
 
 ```ts twoslash
 // @noErrors
@@ -342,6 +379,8 @@ greet("Brendan");
 
 If we run `tsc hello.ts` again, notice that we get an error on the command line!
 
+如果我们再次运行 `tsc hello.ts`，请注意，我们在命令行上得到一个错误！
+
 ```txt
 Expected 2 arguments, but got 1.
 ```
@@ -349,6 +388,10 @@ Expected 2 arguments, but got 1.
 TypeScript is telling us we forgot to pass an argument to the `greet` function, and rightfully so.
 So far we've only written standard JavaScript, and yet type-checking was still able to find problems with our code.
 Thanks TypeScript!
+
+TypeScript告诉我们忘了给 `greet` 函数传递一个参数，这是正确的。
+到目前为止，我们只编写了标准的 JavaScript，但类型检查仍然能够发现代码中的问题。
+谢谢TypeScript！
 
 ## Emitting with Errors
 

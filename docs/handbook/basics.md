@@ -393,11 +393,15 @@ TypeScript告诉我们忘了给 `greet` 函数传递一个参数，这是正确�
 到目前为止，我们只编写了标准的 JavaScript，但类型检查仍然能够发现代码中的问题。
 谢谢TypeScript！
 
-## Emitting with Errors
+## Emitting with Errors  发出错误
 
 One thing you might not have noticed from the last example was that our `hello.js` file changed again.
 If we open that file up then we'll see that the contents still basically look the same as our input file.
 That might be a bit surprising given the fact that `tsc` reported an error about our code, but this is based on one of TypeScript's core values: much of the time, _you_ will know better than TypeScript.
+
+在上一个示例中，您可能没有注意到的一件事是 `hello.js` 文件又变了。
+如果我们打开这个文件，我们会看到它的内容看起来基本上和我们的输入文件一样。
+这可能有点令人惊讶的是  `tsc`报告了一个关于我们代码的错误，但这是基于TypeScript的核心价值之一: 大多数时候，你会比TypeScript更清楚。
 
 To reiterate from earlier, type-checking code limits the sorts of programs you can run, and so there's a tradeoff on what sorts of things a type-checker finds acceptable.
 Most of the time that's okay, but there are scenarios where those checks get in the way.
@@ -405,10 +409,21 @@ For example, imagine yourself migrating JavaScript code over to TypeScript and i
 Eventually you'll get around to cleaning things up for the type-checker, but that original JavaScript code was already working!
 Why should converting it over to TypeScript stop you from running it?
 
+为了重申以前的观点，代码类型检查限制了可以运行的程序类型，因此类型检查器可以权衡哪些类型可以被接受。
+在大多数情况下，这是可以的，但是在某些情况下，检查会成为障碍。
+例如，想象自己将 JavaScript 代码迁移到 TypeScript 并引入类型检查错误。
+最终，您将抽出时间为类型检查器清理东西，但是原始的 JavaScript 代码已经正常工作了！
+为什么把它转换成TypeScript就不能运行了呢？
+
 So TypeScript doesn't get in your way.
 Of course, over time, you may want to be a bit more defensive against mistakes, and make TypeScript act a bit more strictly.
 In that case, you can use the [`noEmitOnError`](/tsconfig#noEmitOnError) compiler option.
 Try changing your `hello.ts` file and running `tsc` with that flag:
+
+所以TypeScript不会成为你的阻碍。
+当然，随着时间的推移，你可能需要对错误采取更多的防御措施，并使TypeScript更加严格。
+在这种情况下，您可以使用 [`noEmitOnError`](/tsconfig#noEmitOnError) 编译器选项。
+尝试更改 `hello.ts` 文件并使用该标志运行`tsc` :
 
 ```sh
 tsc --noEmitOnError hello.ts
@@ -416,11 +431,17 @@ tsc --noEmitOnError hello.ts
 
 You'll notice that `hello.js` never gets updated.
 
-## Explicit Types
+您会发现 `hello.js` 不会被更新。
+
+## Explicit Types    显示类型
 
 Up until now, we haven't told TypeScript what `person` or `date` are.
 Let's edit the code to tell TypeScript that `person` is a `string`, and that `date` should be a `Date` object.
 We'll also use the `toDateString()` method on `date`.
+
+到目前为止，我们还没有告诉TypeScript`person` 或 `date`是什么。
+让我们编辑代码，告诉 TypeScript  `person` 是 `string`，`date`应该是一个`Date` 对象。
+我们将在`date`上使用 `toDateString()`方法。
 
 ```ts twoslash
 function greet(person: string, date: Date) {
@@ -431,8 +452,13 @@ function greet(person: string, date: Date) {
 What we did was add _type annotations_ on `person` and `date` to describe what types of values `greet` can be called with.
 You can read that signature as "`greet` takes a `person` of type `string`, and a `date` of type `Date`".
 
+我们所做的就是在  `person` 和`date`上添加类型注释来描述能被`greet`调用的值的类型都是什么。
+你可以认为`greet`的签名就是拥有 `string`类型的 `person`和一个`Date`类型的`date`。
+
 With this, TypeScript can tell us about other cases where `greet` might have been called incorrectly.
 For example...
+
+有了这个，TypeScript可以告诉我们哪些情况`greet` 可能被错误调用。
 
 ```ts twoslash
 // @errors: 2345
@@ -446,10 +472,17 @@ greet("Maddison", Date());
 Huh?
 TypeScript reported an error on our second argument, but why?
 
+嗯? TypeScript在我们第二个参数上报了一个错误，但是为什么呢？
+
 Perhaps surprisingly, calling `Date()` in JavaScript returns a `string`.
 On the other hand, constructing a `Date` with `new Date()` actually gives us what we were expecting.
 
+也许令人惊讶的是，在 JavaScript 中调用`Date()`返回一个 `string`类型。
+另一方面，通过`new Date()`构造一个 `Date`类型 才会返回我们所期望的对象。
+
 Anyway, we can quickly fix up the error:
+
+无论如何，我们可以快速修复这个错误:
 
 ```ts twoslash {4}
 function greet(person: string, date: Date) {
@@ -462,6 +495,9 @@ greet("Maddison", new Date());
 Keep in mind, we don't always have to write explicit type annotations.
 In many cases, TypeScript can even just _infer_ (or "figure out") the types for us even if we omit them.
 
+请记住，我们并不总是需要编写明确的类型声明。
+在许多情况下，即使我们省略了类型，TypeScript 甚至可以为我们推断(或者“搞明白”)类型。
+
 ```ts twoslash
 let msg = "hello there!";
 //  ^?
@@ -470,7 +506,11 @@ let msg = "hello there!";
 Even though we didn't tell TypeScript that `msg` had the type `string` it was able to figure that out.
 That's a feature, and it's best not to add annotations when the type system would end up inferring the same type anyway.
 
+尽管我们没有告诉TypeScript `msg`  是`string`类型，但是它能够推断出来。
+这是一个特性，当类型系统最终推断出相同的类型时，最好不要添加声明。
+
 > Note: the message bubble inside the code sample above. That is what your editor would show if you had hovered over the word.
+> 注意: 代码上将会有气泡信息。就好像当你划过一个字符你的编辑器将会显示信息一样。
 
 ## Erased Types
 
